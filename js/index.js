@@ -1,5 +1,7 @@
 var CORS_PROXY_URL = "https://cors.bridged.cc/";
 var CHECK_DOWNLOADS_FINISHED_EVERY_MS = 100;
+var MAX_POSTS_PER_REQUEST = 35;
+var MIN_POSTS_PER_REQUEST = 10;
 
 /* User options */
 var userDownload;
@@ -164,12 +166,12 @@ function updateUI() {
 }
 
 function download(anchor) {
-    /* Max 100 posts per request */
-    var maxImageCountNow = Math.min(maxImageCount - toDownloadCount, 100);
+    /* Max MAX_POSTS_PER_REQUEST posts per request */
+    var maxImageCountNow = Math.min(maxImageCount - toDownloadCount, MAX_POSTS_PER_REQUEST);
 
     /* Prevent extreme amounts of requests in the case that maxImageCountNow is for example 1 */
-    if (maxImageCountNow < 50) {
-        maxImageCountNow = 50;
+    if (maxImageCountNow < MIN_POSTS_PER_REQUEST) {
+        maxImageCountNow = MIN_POSTS_PER_REQUEST;
     }
 
     var url;
